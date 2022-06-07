@@ -26,13 +26,13 @@ function App() {
     },
   ]);
 
-  const addExpense = (data) => {
+  const addExpenseHandler = (data) => {
     setExpenses([...expenses, data]);
   };
 
   return (
     <div>
-      <NewExpense addExpense={addExpense} />
+      <NewExpense addExpense={addExpenseHandler} />
       <Expenses expenses={expenses} />
     </div>
   );

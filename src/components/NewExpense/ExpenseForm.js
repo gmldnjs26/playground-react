@@ -1,21 +1,21 @@
 import { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = ({ addExpense }) => {
+const ExpenseForm = ({ onSaveExpense }) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
   const sumbitHandler = (e) => {
-    e.preventDefault()
-    addExpense({
+    e.preventDefault();
+    onSaveExpense({
       title,
       amount,
       date: new Date(date),
     });
-    setTitle('')
-    setAmount('')
-    setDate('')
+    setTitle("");
+    setAmount("");
+    setDate("");
   };
 
   return (
@@ -51,9 +51,7 @@ const ExpenseForm = ({ addExpense }) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );
