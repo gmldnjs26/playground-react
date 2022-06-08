@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
-import FilterExpense from "./components/FilterExpense/FilterExpense";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -27,22 +26,16 @@ function App() {
     },
   ]);
 
+
   const addExpenseHandler = (data) => {
     setExpenses([...expenses, data]);
   };
-
-  const filterExpenseHandler = (date) => {
-    console.log(date)
-    setExpenses(expenses.filter((expense) => {
-      return expense.date.getFullYear === date
-    }))
-  }
-
   return (
     <div>
       <NewExpense addExpense={addExpenseHandler} />
-      <FilterExpense onFilterExpense={filterExpenseHandler} />
-      <Expenses expenses={expenses} />
+      <Expenses
+        expenses={expenses}
+      />
     </div>
   );
 }
