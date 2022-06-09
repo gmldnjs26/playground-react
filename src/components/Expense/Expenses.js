@@ -18,15 +18,14 @@ const Expenses = (props) => {
         .expenses.filter(
           (expense) => expense.date.getFullYear().toString() === year
         )
-        .map((item) => {
-          return (
-            <ExpenseItem
-              title={item.title}
-              date={item.date}
-              amount={item.amount}
-            />
-          );
-        })}
+        .map((item) => (
+          <ExpenseItem
+            title={item.title}
+            date={item.date}
+            amount={item.amount}
+          />
+          )
+        )}
     </Card>
   );
 };
