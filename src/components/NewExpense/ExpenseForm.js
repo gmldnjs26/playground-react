@@ -10,7 +10,7 @@ const ExpenseForm = ({ onSaveExpense, closeForm }) => {
     e.preventDefault();
     onSaveExpense({
       title,
-      amount,
+      amount: Number(amount),
       date: new Date(date),
     });
     setTitle("");
