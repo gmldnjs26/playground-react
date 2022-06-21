@@ -6,7 +6,6 @@ const User = () => {
   const [userList, setUserList] = useState([]);
 
   const addUser = (userInfo) => {
-    console.log(userInfo);
     setUserList((prev) => {
       setUserList([...prev, userInfo]);
     });

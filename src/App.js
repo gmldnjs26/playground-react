@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
@@ -34,6 +34,21 @@ function App() {
       return [...prev, data];
     });
   };
+  useEffect(() => {
+    if (localStorage.getItem("expenses")) {
+      const temp = JSON.parse(localStorage.getItem("expenses")).map((item) => {
+        return {
+          ...item,
+          date: new Date(item.date),
+        };
+      });
+      setExpenses(temp);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
   return (
     <div>
       <NewExpense addExpense={addExpenseHandler} />
