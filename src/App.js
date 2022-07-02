@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
@@ -26,12 +26,23 @@ const DUMMY_DATA = [
   },
 ];
 
+const expensesReducer = (state, action) => {
+  if (action.type === "INIT_EXPENSES") {
+    return action.val;
+  }
+  if (action.type === "ADD_EXPENSE") {
+    return [...state, action.val];
+  }
+  return DUMMY_DATA;
+};
+
 function App() {
-  const [expenses, setExpenses] = useState(DUMMY_DATA);
+  const [expenses, dispatch] = useReducer(expensesReducer, DUMMY_DATA);
 
   const addExpenseHandler = (data) => {
-    setExpenses((prev) => {
-      return [...prev, data];
+    dispatch({
+      type: "ADD_EXPENSE",
+      val: data,
     });
   };
   useEffect(() => {
@@ -42,7 +53,10 @@ function App() {
           date: new Date(item.date),
         };
       });
-      setExpenses(temp);
+      dispatch({
+        type: "INIT_EXPENSES",
+        val: temp,
+      });
     }
   }, []);
 
