@@ -3,7 +3,6 @@ import { useEffect, useReducer } from "react";
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import User from "./components/User/User";
-import { AuthContextProvider } from "./store/auth-context";
 
 const DUMMY_DATA = [
   {
@@ -65,11 +64,11 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
   return (
-    <AuthContextProvider>
+    <div>
       <NewExpense addExpense={addExpenseHandler} />
       <Expenses expenses={expenses} />
       <User />
-    </AuthContextProvider>
+    </div>
   );
 }
 
