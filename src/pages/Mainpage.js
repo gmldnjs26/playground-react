@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react";
 
-import Expenses from "./components/Expense/Expenses";
-import NewExpense from "./components/NewExpense/NewExpense";
-import User from "./components/User/User";
+import Expenses from "../components/Expense/Expenses";
+import NewExpense from "../components/NewExpense/NewExpense";
+import User from "../components/User/User";
 
 const DUMMY_DATA = [
   {
