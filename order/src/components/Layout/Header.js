@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 import mealsImageSrc from "../../assets/meals.jpeg";
 import classes from "./Header.module.css";
