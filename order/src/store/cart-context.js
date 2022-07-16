@@ -1,5 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useReducer } from "react";
+
+const defaultCartState = {
+  items: [],
+  totalAmount: 0,
+};
+
+const cartReducer = (state, action) => {
+  if (action.type === "ADD") {
+    return state.items.concat(action.item);
+  }
+  return defaultCartState;
+};
 
 export const CartContext = React.createContext({
   items: [],
@@ -9,23 +21,14 @@ export const CartContext = React.createContext({
 });
 
 export const CartContextProvider = (props) => {
-  const addItemToCartHandler = (data) => {
-    const idx = cartItems.findIndex((item) => item.id === data.id);
-
-    if (idx === -1) {
-      setCartItems((prev) => {
-        return [...prev, data];
-      });
-    } else {
-      setCartItems((prev) => {
-        return [
-          ...prev,
-          { ...prev[idx], amount: prev[idx].amount + data.amount },
-        ];
-      });
-    }
+  const [cartState, dispatchCartAction] = useReducer(
+    cartReducer,
+    defaultCartState
+  );
+  const addItemToCartHandler = (item) => {
+    dispatchCartAction({ type: "ADD", item: item });
   };
-  const removeItemFromCartHandler = () => {};
+  const removeItemFromCartHandler = (id) => {};
   const cartContext = {
     items: [],
     totalAmout: 0,
