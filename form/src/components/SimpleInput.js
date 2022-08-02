@@ -16,16 +16,19 @@ const SimpleInput = (props) => {
     } else {
       setNameIsValid(true);
     }
-
-    console.log(name);
     setName("");
   };
 
+  const nameInputClasses = nameIsValid
+    ? "form-control"
+    : "form-control invalid";
+
   return (
     <form onSubmit={onSumbitHandler}>
-      <div className="form-control">
+      <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input type="text" id="name" value={name} onChange={onInputHandler} />
+        {nameIsValid && <p className="error-text">Name must not be empty</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
