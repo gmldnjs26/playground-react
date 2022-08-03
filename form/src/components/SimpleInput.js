@@ -16,7 +16,7 @@ const SimpleInput = (props) => {
     hasValueError: hasEmailError,
     onChangeHandler: onChangeEmailHandler,
     onBlurHandler: onBlurEmailHandler,
-  } = useInput("", (value) => value.trim() !== "");
+  } = useInput("", (value) => value.includes("@"));
 
   const onSumbitHandler = (e) => {
     e.preventDefault();
