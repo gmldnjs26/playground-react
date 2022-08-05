@@ -15,7 +15,7 @@ var DB *gorm.DB
 func Connect() {
 	var err error
 
-	dsn := "root:root@tcp(db:3306)/order"
+	dsn := "root:root@tcp(db:3306)/gwak"
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
