@@ -8,7 +8,6 @@ const Cart = (props) => {
   const cartContext = useContext(CartContext);
 
   const onRemoveCartItem = (id) => {
-    console.log("Asd");
     cartContext.removeItem(id);
   };
 
