@@ -5,6 +5,8 @@ import (
 	"os"
 	"time"
 
+	"chore-api/src/models"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -36,5 +38,5 @@ func Connect() {
 
 func AutoMigrate() {
 	// enrollment models
-	DB.AutoMigrate()
+	DB.AutoMigrate(models.Meal{}, models.Order{}, models.OrderItem{})
 }
