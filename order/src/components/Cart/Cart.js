@@ -39,22 +39,20 @@ const Cart = (props) => {
         <span>Total Price</span>
         <span>${cartContext.totalPrice.toFixed(2)}</span>
       </div>
-      {isShowCheckout && <Checkout />}
-      <div className={classes.actions}>
-        <button onClick={props.onCloseCart} className={classes["button--alt"]}>
-          Close
-        </button>
-        {!isShowCheckout ? (
+      {isShowCheckout && <Checkout onCancel={props.onCloseCart} />}
+      {!isShowCheckout && (
+        <div className={classes.actions}>
+          <button
+            onClick={props.onCloseCart}
+            className={classes["button--alt"]}
+          >
+            Close
+          </button>
           <button onClick={onReadyCheckout} className={classes.button}>
             Order
           </button>
-        ) : (
-          <button onClick={onReadyCheckout} className={classes.button}>
-            Confirm
-          </button>
-        )}
-      </div>
-      <div></div>
+        </div>
+      )}
     </Modal>
   );
 };
