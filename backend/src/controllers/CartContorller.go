@@ -34,19 +34,20 @@ func CreateOrUpdateCart(c *fiber.Ctx) error {
 
 	if cart.Id == 0 {
 		// create
+		cart := models.Cart{
+			Title:       request.title,
+			Description: request.description,
+			Price:       uint(request.price),
+			Amount:      uint(request.amount),
+		}
+		db.DB.Model(&cart).Create(&cart)
 	} else {
 		// update
+		cart := models.Cart{
+			Amount: cart.Amount + uint(request.amount),
+		}
+		db.DB.Model(&cart).Updates(&cart)
+
 	}
-
-	// database.DB.Where("user_id = ?", id).Find(&links)
-
-	// for _, cart := range carts {
-	// 	if cart.Title == request.title {
-	// 		temp := models.Cart{
-	// 			Id:     cart.Id,
-	// 			Amount: cart.Amount + uint(request.amount),
-	// 		}
-	// 		db.DB.Model(&temp).Updates(&temp)
-	// 	}
-	// }
+	return c.JSON(cart)
 }
