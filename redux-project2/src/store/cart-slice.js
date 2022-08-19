@@ -34,7 +34,11 @@ export const cartSlice = createSlice({
       const targetIndex = state.item.findIndex(
         (e) => e.productId === action.payload
       );
-      state.item[targetIndex].amount = state.item[targetIndex].amount - 1;
+      if (state.item[targetIndex].amount === 1) {
+        state.splice(targetIndex, 1);
+      } else {
+        state.item[targetIndex].amount = state.item[targetIndex].amount - 1;
+      }
     },
   },
 });
