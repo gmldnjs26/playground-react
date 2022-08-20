@@ -16,10 +16,10 @@ func Carts(c *fiber.Ctx) error {
 }
 
 type CreateOrUpdateOrderRequest struct {
-	Title       string
-	Price       int
-	Amount      int
-	Description string
+	Title       string `json:"title"`
+	Price       int    `json:"price"`
+	Amount      int    `json:"amount"`
+	Description string `json:"description"`
 }
 
 func CreateOrUpdateCart(c *fiber.Ctx) error {
