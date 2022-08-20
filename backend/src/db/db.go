@@ -38,5 +38,5 @@ func Connect() {
 
 func AutoMigrate() {
 	// enrollment models
-	DB.AutoMigrate(models.Meal{}, models.Order{}, models.OrderItem{})
+	DB.AutoMigrate(models.Meal{}, models.Order{}, models.OrderItem{}, models.Cart{})
 }

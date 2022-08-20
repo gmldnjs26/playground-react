@@ -16,10 +16,10 @@ func Carts(c *fiber.Ctx) error {
 }
 
 type CreateOrUpdateOrderRequest struct {
-	title       string
-	price       int
-	amount      int
-	description string
+	Title       string
+	Price       int
+	Amount      int
+	Description string
 }
 
 func CreateOrUpdateCart(c *fiber.Ctx) error {
@@ -30,24 +30,21 @@ func CreateOrUpdateCart(c *fiber.Ctx) error {
 		return err
 	}
 
-	db.DB.Where("title = ?", request.title).Find(&cart)
+	db.DB.Where("title = ?", request.Title).Find(&cart)
 
 	if cart.Id == 0 {
 		// create
-		cart := models.Cart{
-			Title:       request.title,
-			Description: request.description,
-			Price:       uint(request.price),
-			Amount:      uint(request.amount),
+		cart = models.Cart{
+			Title:       request.Title,
+			Description: request.Description,
+			Price:       uint(request.Price),
+			Amount:      uint(request.Amount),
 		}
 		db.DB.Model(&cart).Create(&cart)
 	} else {
 		// update
-		cart := models.Cart{
-			Amount: cart.Amount + uint(request.amount),
-		}
+		cart.Amount = cart.Amount + uint(request.Amount)
 		db.DB.Model(&cart).Updates(&cart)
-
 	}
 	return c.JSON(cart)
 }
