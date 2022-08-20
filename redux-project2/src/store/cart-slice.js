@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cartActions, uiActions } from ".";
+
 const initialCartState = {
   item: [],
   totalPrice: 0,
@@ -9,6 +9,9 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: initialCartState,
   reducers: {
+    loadItems(state, action) {
+      state.item = action.payload;
+    },
     addItem(state, action) {
       const targetIdx = state.item.findIndex(
         (e) => e.productId === action.payload.id
@@ -43,48 +46,3 @@ export const cartSlice = createSlice({
     },
   },
 });
-
-export const sendCartItem = (cartItem) => {
-  return async (dispatch) => {
-    const addCartItem = async () => {
-      await fetch("http://localhost:7070/api/carts", {
-        method: "POST",
-        body: JSON.stringify({
-          title: cartItem.title,
-          description: cartItem.description,
-          price: cartItem.price,
-          amount: 1,
-        }),
-      });
-    };
-    dispatch(
-      uiActions.showNotification({
-        status: "pending",
-        title: "Sending",
-        message: "Sending cart item",
-      })
-    );
-    try {
-      await addCartItem();
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Success!!!!!",
-        })
-      );
-      // dispatch(cartSlice.cartActions.addItem(cartItem));
-      //  아직 actions가 생성전이라 이렇게 사용할 수 없다.
-      dispatch(cartActions.addItem(cartItem));
-    } catch (err) {
-      console.error(err);
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Error!!!!!",
-        })
-      );
-    }
-  };
-};
