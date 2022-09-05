@@ -17,7 +17,7 @@ var DB *gorm.DB
 func Connect() {
 	var err error
 
-	dsn := "root:root@tcp(db:3306)/gwak"
+	dsn := "root:root@tcp(react-db:3306)/gwak"
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
@@ -38,5 +38,5 @@ func Connect() {
 
 func AutoMigrate() {
 	// enrollment models
-	DB.AutoMigrate(models.Meal{}, models.Order{}, models.OrderItem{}, models.Cart{})
+	DB.AutoMigrate(models.Meal{}, models.Order{}, models.OrderItem{}, models.Cart{}, models.Quote{}, models.Comment{})
 }
