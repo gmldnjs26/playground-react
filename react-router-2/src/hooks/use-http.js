@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer, useCallback } from "react";
 
 const httpReducer = (state, action) => {
   if (action.type === "SUCCESS") {
@@ -24,6 +24,7 @@ const httpReducer = (state, action) => {
       data: null,
     };
   }
+  return state;
 };
 
 const useHttp = (requestFunction, startWithPending) => {
@@ -33,18 +34,23 @@ const useHttp = (requestFunction, startWithPending) => {
     status: startWithPending ? "pending" : "",
   });
 
-  const sendRequest = async (requestData) => {
-    dispatch({ type: "PENDING" });
-    try {
-      const res = await requestFunction(requestData);
-      dispatch({ type: "SUCCESS", data: res });
-    } catch (err) {
-      dispatch({
-        type: "ERROR",
-        errorMessage: error.message || "Something went wrong!",
-      });
-    }
-  };
+  const sendRequest = useCallback(
+    async (requestData) => {
+      dispatch({ type: "PENDING" });
+      try {
+        const res = await requestFunction(requestData);
+        console.log(res);
+        // const res = [];
+        dispatch({ type: "SUCCESS", resposeData: res });
+      } catch (err) {
+        dispatch({
+          type: "ERROR",
+          errorMessage: err.message || "Something went wrong!",
+        });
+      }
+    },
+    [requestFunction]
+  );
 
   return {
     sendRequest,

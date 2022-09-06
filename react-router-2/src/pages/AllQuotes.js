@@ -1,25 +1,26 @@
+import { Fragment, useEffect } from "react";
 import QuoteList from "../components/quotes/QuoteList";
-
-const DUMMY_DATA = [
-  {
-    id: "q1",
-    author: "Max",
-    text: "Learning React is fun",
-  },
-  {
-    id: "q2",
-    author: "Min",
-    text: "Learning Typescript is fun",
-  },
-  {
-    id: "q3",
-    author: "Heewon",
-    text: "Learning Vue is fun",
-  },
-];
+import useHttp from "../hooks/use-http";
+const requestFunction = async () => {
+  const res = await fetch("http://localhost:7070/api/quotes");
+  const result = await res.json();
+  return result;
+};
 
 const AllQuotes = () => {
-  return <QuoteList quotes={DUMMY_DATA} />;
+  const { sendRequest, data, error, status } = useHttp(requestFunction);
+  useEffect(() => {
+    sendRequest();
+  }, [sendRequest]);
+  return (
+    <Fragment>
+      {status === "completed" ? (
+        <QuoteList quotes={data} />
+      ) : (
+        <div>Loading...</div>
+      )}
+    </Fragment>
+  );
 };
 
 export default AllQuotes;
