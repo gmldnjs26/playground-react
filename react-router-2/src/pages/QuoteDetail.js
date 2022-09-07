@@ -1,46 +1,45 @@
 import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
-const DUMMY_DATA = [
-  {
-    id: "q1",
-    author: "Max",
-    text: "Learning React is fun",
-  },
-  {
-    id: "q2",
-    author: "Min",
-    text: "Learning Typescript is fun",
-  },
-  {
-    id: "q3",
-    author: "Heewon",
-    text: "Learning Vue is fun",
-  },
-];
+import { fetchQuote } from "../api";
+import useHttp from "../hooks/use-http";
+import { Fragment, useEffect } from "react";
 
 const QuoteDetail = () => {
   const params = useParams();
   const match = useRouteMatch();
 
-  const quote = DUMMY_DATA.find((quote) => quote.id === params.quoteId);
+  const { sendRequest, data, status, error } = useHttp(fetchQuote);
 
-  if (!quote) {
+  useEffect(() => {
+    sendRequest(params.quoteId);
+  }, [sendRequest]);
+
+  if (status === "error") {
     return <p>No Quote</p>;
   }
   return (
-    <div>
-      <HighlightedQuote text={quote.text} author={quote.author} />
-      <Route path={`${match.path}`} exact>
-        <div className="centered">
-          <Link to={`${match.url}/comments`}>Load Comments</Link>
+    <Fragment>
+      {status === "completed" ? (
+        <div>
+          <HighlightedQuote text={data.contents} author={data.author} />
+          <Route path={`${match.path}`} exact>
+            <div className="centered">
+              <Link to={`${match.url}/comments`}>Load Comments</Link>
+            </div>
+          </Route>
+          <Route path={`${match.path}/comments`}>
+            <Comments />
+          </Route>
         </div>
-      </Route>
-      <Route path={`${match.path}/comments`}>
-        <Comments />
-      </Route>
-    </div>
+      ) : (
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
+      )}
+    </Fragment>
   );
 };
 
