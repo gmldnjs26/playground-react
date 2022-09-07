@@ -14,7 +14,8 @@ func Setup(app *fiber.App) {
 	api.Post("/carts", controllers.CreateOrUpdateCart)
 
 	api.Get("/quotes", controllers.Quotes)
-	api.Get("/comments", controllers.CommentsByQuoteId)
+	api.Get("/quotes/:id", controllers.GetQuote)
+	api.Get("/comments/:id", controllers.GetCommentsByQuoteId)
 	api.Post("/quotes", controllers.CreateQuote)
 	api.Post("/comments", controllers.CreateComment)
 }

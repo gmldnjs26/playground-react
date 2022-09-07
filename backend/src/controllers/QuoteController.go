@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"chore-api/src/db"
 	"chore-api/src/models"
 
@@ -15,21 +17,22 @@ func Quotes(c *fiber.Ctx) error {
 	return c.JSON(quotes)
 }
 
-type CommentsByQuoteIdRequest struct {
-	QuoteId int `json:"quote_id"`
-}
-
-func CommentsByQuoteId(c *fiber.Ctx) error {
+func GetCommentsByQuoteId(c *fiber.Ctx) error {
 	var comments []models.Comment
-	var request CommentsByQuoteIdRequest
+	id, _ := strconv.Atoi(c.Params("id"))
 
-	if err := c.BodyParser(&request); err != nil {
-		return err
-	}
-
-	db.DB.Where("id = ?", request.QuoteId).Find(&comments)
+	db.DB.Where("id = ?", id).Find(&comments)
 
 	return c.JSON(comments)
+}
+
+func GetQuote(c *fiber.Ctx) error {
+	var quote models.Quote
+	id, _ := strconv.Atoi(c.Params("id"))
+
+	db.DB.Where("id = ?", id).Find(&quote)
+
+	return c.JSON(quote)
 }
 
 type CreateQuoteRequest struct {
