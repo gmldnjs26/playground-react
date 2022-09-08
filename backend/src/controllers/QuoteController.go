@@ -21,7 +21,7 @@ func GetCommentsByQuoteId(c *fiber.Ctx) error {
 	var comments []models.Comment
 	id, _ := strconv.Atoi(c.Params("id"))
 
-	db.DB.Where("id = ?", id).Find(&comments)
+	db.DB.Where("quote_id = ?", id).Find(&comments)
 
 	return c.JSON(comments)
 }
@@ -58,8 +58,8 @@ func CreateQuote(c *fiber.Ctx) error {
 }
 
 type CreateCommentRequest struct {
-	QuoteId  int    `json:"quote_id"`
-	Contents string `json:"contents"`
+	QuoteId  string
+	Contents string
 }
 
 func CreateComment(c *fiber.Ctx) error {
@@ -75,8 +75,9 @@ func CreateComment(c *fiber.Ctx) error {
 	// if cart.Id == 0 {
 
 	// create
+	quoteId, _ := strconv.Atoi(request.QuoteId)
 	comment = models.Comment{
-		QuoteId:  uint(request.QuoteId),
+		QuoteId:  uint(quoteId),
 		Contents: request.Contents,
 	}
 	db.DB.Model(&comment).Create(&comment)
