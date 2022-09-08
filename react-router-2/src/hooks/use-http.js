@@ -39,8 +39,6 @@ const useHttp = (requestFunction, startWithPending) => {
       dispatch({ type: "PENDING" });
       try {
         const res = await requestFunction(requestData);
-        console.log(res);
-        // const res = [];
         dispatch({ type: "SUCCESS", resposeData: res });
       } catch (err) {
         dispatch({

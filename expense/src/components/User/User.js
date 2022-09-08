@@ -7,9 +7,6 @@ const User = () => {
   const [userList, setUserList] = useState([]);
   const authContext = useContext(AuthContext);
 
-  console.log(authContext.onLogin);
-  console.log(authContext.onLogout);
-
   const addUser = (userInfo) => {
     setUserList((prev) => {
       setUserList([...prev, userInfo]);
