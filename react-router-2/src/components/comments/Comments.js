@@ -12,20 +12,18 @@ const Comments = () => {
   const [isAddingComment, setIsAddingComment] = useState(false);
 
   const { sendRequest, data, status } = useHttp(fetchComments);
-  const { sendRequest: createCommentRequest, status: createCommentSts } =
-    useHttp(createComment);
+  const { sendRequest: createCommentRequest } = useHttp(createComment);
   const params = useParams();
 
   useEffect(() => {
     sendRequest(params.quoteId);
-  }, [sendRequest, isAddingComment]);
+  }, [sendRequest, isAddingComment, params.quoteId]);
 
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
 
   const onAddCommentHandler = (contents) => {
-    console.log(contents);
     createCommentRequest({ quoteId: params.quoteId, contents });
     setIsAddingComment(false);
   };
