@@ -30,4 +30,6 @@ const MainNavigation = () => {
   );
 };
 
+function setup() {}
+
 export default MainNavigation;
