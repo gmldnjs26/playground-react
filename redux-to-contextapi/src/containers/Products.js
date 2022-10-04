@@ -5,12 +5,11 @@ import { ProductsContext } from "../context/products-context";
 import "./Products.css";
 
 const Products = (props) => {
-  const context = useContext(ProductsContext);
-  console.log(context);
+  const productList = useContext(ProductsContext).products;
 
   return (
     <ul className="products-list">
-      {context.products.map((prod) => (
+      {productList.map((prod) => (
         <ProductItem
           key={prod.id}
           id={prod.id}
