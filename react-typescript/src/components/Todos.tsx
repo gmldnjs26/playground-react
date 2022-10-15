@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import Todo from "../models/todo";
+import TodoItem from "./TodoItem";
 
 type MyComponentProps = {
   children?: ReactNode;
@@ -10,7 +11,7 @@ const Todos: FC<MyComponentProps> = (props) => {
   return (
     <ul>
       {props.items.map((item) => (
-        <li>{item.text}</li>
+        <TodoItem item={item} key={item.id} />
       ))}
     </ul>
   );
