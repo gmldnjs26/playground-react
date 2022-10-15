@@ -1,7 +1,14 @@
-import "./App.css";
+import Todos from "./components/Todos";
+import Todo from "./models/todo";
 
-function App() {
-  return <div className="App"></div>;
-}
+const todoList = [new Todo("react"), new Todo("good")];
+
+const App = () => {
+  return (
+    <div className="App">
+      <Todos items={todoList} />
+    </div>
+  );
+};
 
 export default App;
