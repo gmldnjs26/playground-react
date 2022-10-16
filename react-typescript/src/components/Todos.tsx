@@ -1,17 +1,19 @@
 import { FC, ReactNode } from "react";
+import classes from "./Todos.module.css";
 import Todo from "../models/todo";
 import TodoItem from "./TodoItem";
 
-type MyComponentProps = {
+type TodosProps = {
   children?: ReactNode;
   items: Todo[];
+  onDeleteTodo: (id: string) => void;
 };
 
-const Todos: FC<MyComponentProps> = (props) => {
+const Todos: FC<TodosProps> = (props) => {
   return (
-    <ul>
+    <ul className={classes.todos}>
       {props.items.map((item) => (
-        <TodoItem item={item} key={item.id} />
+        <TodoItem item={item} key={item.id} onDeleteTodo={props.onDeleteTodo} />
       ))}
     </ul>
   );

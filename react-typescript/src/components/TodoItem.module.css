@@ -1,0 +1,20 @@
+.item {
+  margin: 1rem 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  background-color: #f7f5ef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item button {
+  color: white;
+  font-size: 14px;
+  background-color: red;
+  width: 60px;
+  padding: 6px;
+  border: 1px solid red;
+  border-radius: 3px;
+  cursor: pointer;
+}
