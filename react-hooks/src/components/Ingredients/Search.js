@@ -10,15 +10,14 @@ const Search = React.memo((props) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // useEffect가 실행됬을때 setTimout이 등록되며 등록과 동시에
-      // enteredFilter가 고정 0.5초 동안 값이 변하지 않으면 검색이 실행되는 로직이다.
       if (enteredFilter === inputRef.current.value) {
         const query =
           enteredFilter.length === 0
             ? ""
             : `?orderBy="title"&equalTo="${enteredFilter}"`;
         fetch(
-          "https://react-hooks-update.firebaseio.com/ingredients.json" + query
+          "https://dummy-server-d1761-default-rtdb.firebaseio.com/ingredients.json" +
+            query
         )
           .then((response) => response.json())
           .then((responseData) => {
